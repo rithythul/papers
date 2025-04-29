@@ -9,7 +9,7 @@ We propose a blockchain-based digital token system that extends the Cambodian ri
 
 ## 1. Introduction
 
-The success of USD-pegged stablecoins has demonstrated how blockchain technology can extend a national currency's utility to the digital environment. These stablecoins have significantly enhanced USD's role in the global digital transactions, with daily trading volume exceeding $100 billion (CoinMarketCap, 2024). This proven model shows how a national currency can maintain its prominence in the evolving digital economy while preserving its monetary sovereignty.
+The success of USD-pegged stablecoins has demonstrated how blockchain technology can extend a national currency's utility to the digital environment. These stablecoins have significantly enhanced USD's role in global digital transactions, with daily trading volume exceeding $100 billion (CoinMarketCap, 2024). This proven model shows how a national currency can maintain its prominence in the evolving digital economy while preserving its monetary sovereignty.
 
 Cambodia's financial infrastructure has made significant progress with the National Bank of Cambodia leading the way with its Bakong Blockchain that enables domestic interbank transfers and payments. However, the permissioned nature of Bakong, while appropriate for the interbank settlement, limits the riel's participation in the broader blockchain ecosystem. Just as USD-pegged stablecoins have expanded the USD's utility, KHRt extends the Cambodian riel's utility to the blockchain ecosystem. KHRt addresses these limitations by enabling permissionless, programmable riel-denominated value transfers across multiple public blockchains.
 
@@ -129,7 +129,18 @@ The system enforces this constraint through smart contract logic with the follow
 
 This mathematical model ensures that KHRt maintains its 1:1 peg with the Cambodian riel while providing a safety margin against market volatility.
 
-### 3.4 Operational Entity
+### 3.4 Advisory Alliance
+
+KHRTrust aims to build an alliance of trusted financial institutions, technology partners, and regulatory experts to provide oversight and guidance for KHRt's reserve backing. This advisory alliance will:
+
+- Enhance transparency through multi-stakeholder oversight
+- Review reserve verification processes and audit results
+- Provide balanced expertise across financial, technical, and regulatory domains
+- Contribute to public reporting standards and best practices
+
+The alliance will serve in an advisory capacity to KHRTrust, helping to ensure that reserve management remains transparent, secure, and aligned with industry best practices while maintaining the trust of all stakeholders.
+
+### 3.5 Operational Entity
 
 KHRTrust is a financial technology company incorporated in Cambodia that manages the KHRt system. The company:
 
@@ -137,8 +148,9 @@ KHRTrust is a financial technology company incorporated in Cambodia that manages
 - Manages the minting and burning processes
 - Ensures ongoing compliance with regulatory requirements
 - Implements security measures and auditing procedures
+- Consults with the advisory alliance on reserve management practices
 
-KHRTrust operates under appropriate licenses for payment service provision and digital asset operations, in consultation with the National Bank of Cambodia and relevant regulatory bodies.
+KHRTrust operates under appropriate licenses for payment service provision and digital asset operations, in consultation with the National Bank of Cambodia and relevant regulatory bodies. The company maintains ultimate operational responsibility while benefiting from the expertise and oversight provided by the advisory alliance.
 
 ## 4. Technical Implementation
 
@@ -148,10 +160,10 @@ The KHRt implementation comprises a multi-layered technical architecture:
 
 #### 4.1.1 Key Technical Components
 
-- **Smart Contract Layer**: ERC-20 compatible implementation on Selendra with cross-chain bridges, formal verification, role-based access controls (3-of-5 multi-sig), and emergency pause functionality
-- **Custody Framework**: Shamir's Secret Sharing (5-of-8), FIPS 140-2 Level 4 HSMs, and cold storage for 85% of reserves
-- **Auditing System**: zkSNARK-based proof of reserve, on-chain verification through Merkle proofs, independent accounting firm validation, and real-time reconciliation
-- **Compliance Module**: Real-time AML/CFT screening, risk scoring, FATF Travel Rule compliance, and automated regulatory reporting
+- **Smart Contract Layer**: ERC-20 compatible implementation on Selendra with cross-chain bridges, formal verification by established security firms (quarterly audits), role-based access controls (3-of-5 multi-sig), and emergency pause functionality
+- **Custody Framework**: Shamir's Secret Sharing (5-of-8), FIPS 140-2 Level 4 HSMs, cold storage for 85% of reserves, and geographically distributed key fragments
+- **Auditing System**: zkSNARK-based proof of reserve (weekly verification), on-chain verification through Merkle proofs, independent accounting firm validation (monthly), and real-time reconciliation
+- **Compliance Module**: Real-time AML/CFT screening with major providers, risk scoring based on transaction patterns, FATF Travel Rule compliance for transactions >1M KHR, and automated regulatory reporting
 
 #### 4.1.2 Technology Stack Flow
 
@@ -317,13 +329,13 @@ KHRt's security architecture follows a defense-in-depth approach with multiple l
 
 KHRt implements comprehensive risk mitigation across four key domains:
 
-1. **Reserve Protection**: Diversification across institutions (30% maximum per institution), 5% reserve buffer, insurance coverage, and weekly cryptographic verification
+1. **Reserve Protection**: Diversification across institutions (30% maximum per institution), 5% reserve buffer, insurance coverage (covering theft, fraud, and operational errors), and weekly cryptographic verification
 
-2. **Technical Safeguards**: Multi-layer security architecture, regular penetration testing, bug bounty program, and open-source code review
+2. **Technical Safeguards**: Multi-layer security architecture, quarterly penetration testing by independent security firms, bug bounty program with tiered rewards, and open-source code review
 
-3. **Operational Continuity**: Distributed teams, 24/7 monitoring, secondary partner institutions, and quarterly disaster recovery testing
+3. **Operational Continuity**: Geographically distributed teams, 24/7 monitoring with automated alerting, secondary partner institutions with standby agreements, and quarterly disaster recovery testing
 
-4. **Financial Protections**: 24-month operating reserve, legal defense fund, structured wind-down procedures, and segregated accounts
+4. **Financial Protections**: 24-month operating reserve maintained separately from token reserves, legal defense fund, structured wind-down procedures with regulatory oversight, and legally segregated accounts
 
 ### 5.3 Risk Analysis Matrix
 
@@ -347,7 +359,69 @@ The system implements automatic safety mechanisms to protect the network during 
 
 ### 5.5 Cross-Chain Security
 
-KHRt implements specialized cross-chain security measures including bridge capacity restrictions (5% maximum per bridge), multi-signature validation, timelock periods for large transfers, chain-specific monitoring, and dynamic liquidity management. A bridge circuit breaker automatically suspends operations if suspicious patterns are detected.
+KHRt implements specialized cross-chain security measures to address the significant risks associated with cross-chain bridges:
+
+1. **Bridge Capacity Restrictions**: Maximum 5% of total KHRt supply per bridge to limit exposure
+2. **Multi-Layer Security**:
+   - Multi-signature validation requiring 5-of-8 approvers for bridge transactions
+   - Timelock periods (24-72 hours) for large transfers exceeding 500M KHR
+   - Independent security audits of all bridge code before deployment
+3. **Monitoring and Response**:
+   - Chain-specific monitoring with dedicated anomaly detection
+   - Dynamic liquidity management to prevent bridge exploitation
+   - Automatic circuit breakers that suspend operations if suspicious patterns are detected
+4. **Recovery Procedures**:
+   - Predefined incident response playbooks for bridge-specific scenarios
+   - Reserve allocation for potential bridge compromise recovery
+   - Regular bridge security drills and simulations
+
+### 5.6 Implementation Weaknesses and Trust Considerations
+
+While KHRt aims to leverage blockchain technology for transparency and security, we acknowledge that our implementation is not fully trustless. Users must trust KHRTrust and our banking partners as custodians of the reserve assets. We believe honesty about these limitations is essential, so we directly acknowledge the following risks:
+
+- **We could go bankrupt** - KHRTrust as a company could face financial difficulties or insolvency
+- **Our banks could go insolvent** - Financial institutions holding the reserves could fail
+- **Our banks could freeze or confiscate the funds** - Banking partners could restrict access to reserves
+- **We could abscond with the reserve funds** - Theoretical risk of internal misappropriation exists
+- **Re-centralization of risk to a single point of failure** - Despite blockchain technology, certain operations remain centralized
+
+These risks are inherent to most asset-backed stablecoins and traditional financial services. Users of exchanges and wallets already face many of these same risks when dealing with digital assets.
+
+**How We Address These Risks:**
+
+1. **If KHRTrust went bankrupt:**
+
+   - Reserve assets are legally segregated from operational funds
+   - Corporate structure ensures reserves remain available for redemption
+   - Smart contracts continue to function independently of company operations
+
+2. **If our banks went insolvent:**
+
+   - Reserves are distributed across multiple institutions (maximum 30% per institution)
+   - Banking partners are selected based on rigorous financial stability criteria
+   - Contingency relationships with backup financial institutions are maintained
+
+3. **If our banks froze or confiscated funds:**
+
+   - Banking partners are fully informed about our business model
+   - We maintain compliance with all regulatory requirements
+   - Legal agreements protect against arbitrary freezes
+   - Multiple banking relationships provide redundancy
+
+4. **To prevent misappropriation of funds:**
+
+   - Multi-signature requirements for all reserve transfers
+   - Public corporate structure with known principals
+   - Regular independent audits with published results
+   - Advisory alliance providing additional oversight
+
+5. **To reduce centralization risks:**
+   - Decentralized token storage and transfer on blockchain
+   - Open-source smart contracts with formal verification
+   - Transparent reserve verification mechanisms
+   - Progressive decentralization of operational components where possible
+
+We believe that by acknowledging these limitations directly and implementing robust mitigation strategies, we can build a system that balances the benefits of blockchain technology with the practical realities of integrating with the existing financial system.
 
 ## 6. Applications and Use Cases
 
@@ -416,29 +490,87 @@ KHRt operates within a comprehensive regulatory framework designed for complianc
 
 KHRt will be implemented in five strategic phases over a three-year period:
 
-**Phase 1: Foundation (Months 1-3)** - Legal structure establishment, core contract development, banking partnerships, and governance structure
+**Phase 1: Foundation (Months 1-3)**
 
-**Phase 2: Limited Launch (Months 4-6)** - Institutional partner pilot with 5 financial institutions, 5 billion KHR initial reserve, Bakong integration, and Selendra network deployment
+- Legal structure establishment and regulatory approvals
+- Core smart contract development and security audits
+- Initial banking partnerships (minimum 3 institutions)
+- Advisory alliance formation
+- Success criteria: Legal entity established, contracts audited, banking agreements signed
 
-**Phase 3: Public Expansion (Months 7-12)** - Public access through partner institutions, mobile wallet integration, cross-chain bridge deployment, and enhanced security systems
+**Phase 2: Limited Launch (Months 4-6)**
 
-**Phase 4: Ecosystem Growth (Months 13-24)** - Developer tools, international corridor expansion, enterprise API offering, and treasury management systems
+- Institutional partner pilot with 5 financial institutions
+- 5 billion KHR initial reserve establishment
+- Bakong integration for fiat on/off ramps
+- Selendra network deployment and testing
+- Success criteria: Successful test transactions, 5 billion KHR in reserves, functional Bakong integration
 
-**Phase 5: Advanced Features (Months 25-36)** - Expanded interoperability, advanced payment capabilities, specialized sector solutions, and enhanced governance
+**Phase 3: Public Expansion (Months 7-12)**
 
-## 9. Future Considerations
+- Public access through partner institutions
+- Mobile wallet integration and user interface development
+- Cross-chain bridge deployment (starting with Ethereum)
+- Enhanced security systems and monitoring implementation
+- Success criteria: 1,000+ end users, 20+ billion KHR in circulation, operational cross-chain bridge
+
+**Phase 4: Ecosystem Growth (Months 13-24)**
+
+- Developer tools and SDK release
+- International corridor expansion (Thailand, Vietnam, Singapore)
+- Enterprise API offering for business integration
+- Treasury management systems enhancement
+- Success criteria: 10+ developer projects, 3+ international corridors, 50+ billion KHR in circulation
+
+**Phase 5: Advanced Features (Months 25-36)**
+
+- Expanded interoperability with additional blockchains
+- Advanced payment capabilities (programmable escrow, conditional transfers)
+- Specialized sector solutions (agriculture, supply chain)
+- Enhanced governance and transparency mechanisms
+- Success criteria: Support for 5+ blockchains, 100+ billion KHR in circulation, 10+ specialized applications
+
+## 9. Future Considerations and Business Model
 
 As KHRt matures, KHRTrust may explore opportunities to enhance the system while maintaining its core principles of security, compliance, and stability. Any future developments would be implemented only after thorough regulatory consultation and risk assessment.
 
+### 9.1 Future Development Areas
+
 Potential areas for future exploration include:
 
-1. **Reserve Optimization**: KHRTrust may evaluate options to diversify a small portion of reserves into secure instruments like Cambodian government bonds while maintaining a substantial cash reserve for redemptions.
+1. **Reserve Optimization**: KHRTrust may evaluate options to diversify a small portion of reserves into secure instruments like Cambodian government bonds while maintaining a substantial cash reserve (minimum 80%) for redemptions.
 
 2. **Enhanced Utility**: Development of additional financial services and tools that leverage the KHRt infrastructure to address specific needs in the Cambodian market.
 
 3. **Interoperability Enhancements**: Developing additional integrations with existing financial infrastructure to improve accessibility and utility.
 
 All future developments will adhere to KHRTrust's foundational commitments to full reserve backing, regulatory compliance, and transparent operations.
+
+### 9.2 Business Model and Sustainability
+
+KHRTrust's business model is designed to ensure long-term sustainability while maintaining the security and stability of the KHRt system:
+
+1. **Revenue Sources**:
+
+   - Transaction fees (0.1-0.5% depending on volume and tier)
+   - Interest income from a portion of reserves (subject to regulatory approval)
+   - Enterprise API and integration services
+   - Premium service fees for institutional clients
+
+2. **Cost Structure**:
+
+   - Banking and custody fees
+   - Security and compliance infrastructure
+   - Technical development and maintenance
+   - Operational expenses and team
+
+3. **Financial Sustainability**:
+   - 24-month operational runway maintained at all times
+   - Gradual fee reduction as volume increases
+   - Reinvestment of profits into security and feature development
+   - Transparent financial reporting to stakeholders
+
+This business model ensures that KHRTrust can maintain the KHRt system while continuously improving security, compliance, and utility for users.
 
 ## 10. Conclusion
 
