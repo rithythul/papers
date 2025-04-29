@@ -39,92 +39,106 @@ The Selendra architecture consists of four primary layers:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                         SELENDRA ARCHITECTURE                   │
+│                       APPLICATIONS                              │
 │                                                                 │
+│  ┌─────────────┐  ┌────────────┐  ┌─────────────┐  ┌────────────┐ │
+│  │ RWA         │  │ Loyalty    │  │ Document    │  │ Stablecoin │ │
+│  │ Tokenization│  │ Systems    │  │ Verification│  │ (KHRt)     │ │
+│  └─────────────┘  └────────────┘  └─────────────┘  └────────────┘ │
+│                                                                 │
+│  ┌────────────┐  ┌──────────────────────────────────────────┐   │
+│  │ Bitriel    │  │           SELENDRA TERMINAL              │   │
+│  │ Wallet     │  │                                          │   │
+│  │            │  │  ┌───────────┐ ┌──────┐ ┌─────────────┐  │   │
+│  │            │  │  │Cross-Chain│ │ DEX  │ │    DeFi     │  │   │
+│  │            │  │  │ Bridges   │ │      │ │  Protocols  │  │   │
+│  │            │  │  └───────────┘ └──────┘ └─────────────┘  │   │
+│  │            │  │                                          │   │
+│  │            │  │  ┌──────────┐ ┌──────────────────────┐   │   │
+│  │            │  │  │   NFT    │ │    DAO Governance    │   │   │
+│  │            │  │  │Marketplace│ │                     │   │   │
+│  │            │  │  └──────────┘ └──────────────────────┘   │   │
+│  └────────────┘  └──────────────────────────────────────────┘   │
 └─────────────────────────────────────────────────────────────────┘
                                │
                                ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                        NETWORKING LAYER                          │
-│                                                                 │
-│  ┌─────────────┐    ┌─────────────┐    ┌─────────────────────┐  │
-│  │ Peer        │    │ Connection  │    │ Data Propagation    │  │
-│  │ Discovery   │◄──►│ Management  │◄──►│ & Optimization      │  │
-│  └─────────────┘    └─────────────┘    └─────────────────────┘  │
-└─────────────────────────────────────────────────────────────────┘
-                               │
-                               ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                        CONSENSUS LAYER                           │
-│                                                                 │
-│  ┌─────────────────────────┐      ┌─────────────────────────┐   │
-│  │ Aura (Block Production) │      │ AlephBFT (Finality)     │   │
-│  │ - 1s Block Time         │◄────►│ - DAG-based BFT         │   │
-│  │ - Validator Rotation    │      │ - Deterministic Finality │   │
-│  └─────────────────────────┘      └─────────────────────────┘   │
-└─────────────────────────────────────────────────────────────────┘
-                               │
-                               ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                      STATE STORAGE LAYER                         │
-│                                                                 │
-│  ┌─────────────┐    ┌─────────────┐    ┌─────────────────────┐  │
-│  │ RocksDB     │    │ Merkle      │    │ State Pruning       │  │
-│  │ Key-Value   │◄──►│ Patricia    │◄──►│ & Optimization      │  │
-│  │ Store       │    │ Trie        │    │                     │  │
-│  └─────────────┘    └─────────────┘    └─────────────────────┘  │
-└─────────────────────────────────────────────────────────────────┘
-                               │
-                               ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                         RUNTIME LAYER                            │
+│                         RUNTIME LAYER                           │
 │                                                                 │
 │  ┌─────────────────────┐             ┌─────────────────────┐    │
 │  │ EVM Environment     │             │ WASM Environment    │    │
 │  │ - Solidity Support  │             │ - Rust Contracts    │    │
 │  │ - Web3 API          │             │ - High Performance  │    │
 │  └─────────────────────┘             └─────────────────────┘    │
-│                │                               │                 │
-│                ▼                               ▼                 │
+│                │                               │                │
+│                ▼                               ▼                │
 │  ┌─────────────────────────────────────────────────────────────┐│
-│  │                    SUBSTRATE PALLETS                         ││
+│  │                    SUBSTRATE PALLETS                        ││
 │  │  - Balances  - Staking  - Governance  - Treasury  - Assets  ││
 │  └─────────────────────────────────────────────────────────────┘│
 └─────────────────────────────────────────────────────────────────┘
                                │
                                ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                       APPLICATIONS                               │
+│                      STATE STORAGE LAYER                        │
 │                                                                 │
-│  ┌────────────┐  ┌────────────┐  ┌────────────┐  ┌────────────┐ │
-│  │ RWA        │  │ Loyalty    │  │ Document   │  │ Stablecoin │ │
-│  │ Tokenization│  │ Systems    │  │ Verification│  │ (KHRt)     │ │
-│  └────────────┘  └────────────┘  └────────────┘  └────────────┘ │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────────────┐  │
+│  │ RocksDB     │    │ Merkle      │    │ State Pruning       │  │
+│  │ Key-Value   │◄──►│ Patricia    │◄──► │ & Optimization      │  │
+│  │ Store       │    │ Trie        │    │                     │  │
+│  └─────────────┘    └─────────────┘    └─────────────────────┘  │
+└─────────────────────────────────────────────────────────────────┘
+                               │
+                               ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                        CONSENSUS LAYER                          │
+│                                                                 │
+│  ┌─────────────────────────┐      ┌──────────────────────────┐  │
+│  │ Aura (Block Production) │      │ AlephBFT (Finality)      │  │
+│  │ - 1s Block Time         │◄────►│ - DAG-based BFT          │  │
+│  │ - Validator Rotation    │      │ - Deterministic Finality │  │
+│  └─────────────────────────┘      └──────────────────────────┘  │
+└─────────────────────────────────────────────────────────────────┘
+                               │
+                               ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                        NETWORKING LAYER                         │
+│                                                                 │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────────────┐  │
+│  │ Peer        │    │ Connection  │    │ Data Propagation    │  │
+│  │ Discovery   │◄──►│ Management  │◄──►│ & Optimization       │  │
+│  └─────────────┘    └─────────────┘    └─────────────────────┘  │
+└─────────────────────────────────────────────────────────────────┘
+                               │
+                               ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                         SELENDRA ARCHITECTURE                   │
+│                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
 **Architecture Flow Explanation:**
 
-1. **Selendra Core**: The foundational layer that provides the essential blockchain infrastructure and serves as the base for all other components.
+1. **Applications**: Specialized frameworks at the top of the stack that support specific use cases including RWA tokenization, loyalty systems, document verification, stablecoin infrastructure (KHRt), and Bitriel wallet. Selendra Terminal serves as a unified interface that hosts Cross-Chain Bridges, NFT marketplaces, DEX protocols, DeFi applications, and DAO governance systems.
 
-2. **Networking Layer**: Builds on Selendra Core to handle peer-to-peer communication using libp2p, managing connections between nodes and optimizing data propagation across the network.
-
-3. **Consensus Layer**: Processes transactions and produces blocks through two complementary mechanisms:
-
-   - Aura assigns block production slots to validators in a deterministic sequence
-   - AlephBFT provides fast, deterministic finality through DAG-based consensus
-
-4. **State Storage Layer**: Maintains the blockchain state using a modified Merkle-Patricia Trie structure with RocksDB as the underlying database, implementing pruning to manage chain growth.
-
-5. **Runtime Layer**: Executes blockchain logic through:
+2. **Runtime Layer**: Executes blockchain logic through:
 
    - EVM environment for Ethereum-compatible smart contracts
    - WASM environment for high-performance contracts
    - Substrate pallets providing core functionality (balances, staking, governance, etc.)
 
-6. **Applications**: Specialized frameworks built on the runtime layer to support specific use cases including RWA tokenization, loyalty systems, document verification, and stablecoin infrastructure.
+3. **State Storage Layer**: Maintains the blockchain state using a modified Merkle-Patricia Trie structure with RocksDB as the underlying database, implementing pruning to manage chain growth.
 
-The architecture implements a layered design with Selendra Core as the foundation, with each successive layer building upon the capabilities of the layer below it. This stack-based approach represents how blockchain functionality is constructed: starting with the core infrastructure, adding networking capabilities, implementing consensus mechanisms, managing state, executing smart contracts, and finally enabling user-facing applications.
+4. **Consensus Layer**: Processes transactions and produces blocks through two complementary mechanisms:
+
+   - Aura assigns block production slots to validators in a deterministic sequence
+   - AlephBFT provides fast, deterministic finality through DAG-based consensus
+
+5. **Networking Layer**: Handles peer-to-peer communication using libp2p, managing connections between nodes and optimizing data propagation across the network.
+
+6. **Selendra Architecture**: The foundational layer that provides the essential blockchain infrastructure and serves as the base for all other components.
+
+The architecture implements a bottom-up layered design with the Selendra Architecture as the foundation, with each successive layer building upon the capabilities of the layer below it. This stack-based approach represents how blockchain functionality is constructed: starting with the core infrastructure, adding networking capabilities, implementing consensus mechanisms, managing state, executing smart contracts, and finally enabling user-facing applications at the top.
 
 ### 2.3 Network Topology
 
