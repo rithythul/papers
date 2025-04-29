@@ -262,19 +262,19 @@ The minting and redemption processes follow specific operational flows:
 The circulation of KHRt follows a clear five-step process that maintains the integrity of the 1:1 peg with the Cambodian riel:
 
 ```
-                            3
-                 ┌─────────────────────┐
-                 │      KHRt sent      │
-                 ▼                     ▼
-            ┌─────────┐           ┌─────────┐
-            │  KHRt   │           │  KHRt   │           ┌─────────┐
-            │  user   │           │  user   │           │  KHRt   │
-            └─────────┘           └─────────┘           │  user   │
-                 ▲                     ▲                └─────────┘
-                 │                     │                     ▲
-       2         │                     │                     │         4
-  ┌──────────────┘                     └─────────────────────┐
-  │    KHRt issued                                KHRt redeemed
+                                3
+                 ┌─────────────────────────────┐
+                 │         KHRt sent           │
+                 │                             │
+            ┌─────────┐    ┌─────────┐    ┌─────────┐
+            │  KHRt   │◄───┤  KHRt   ├───►│  KHRt   │
+            │  user   │    │  user   │    │  user   │
+            └─────────┘    └─────────┘    └─────────┘
+                 ▲                             │
+                 │                             │
+       2         │                             │         4
+  ┌──────────────┘                             └─────────────┐
+  │    KHRt issued                               KHRt redeemed
   │                                                          │
   │               ┌───────────────────────┐                  │
   └──────────────►│  Riel reserves held   │◄─────────────────┘
