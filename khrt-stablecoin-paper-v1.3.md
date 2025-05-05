@@ -1,6 +1,6 @@
 # KHRt: Extending the Cambodian Riel to Open Blockchain Networks
 
-_Whitepaper v1.3 – April 2025_ (_work in progress_)
+_Whitepaper v1.3 (_work in progress_) – April 2025_ 
 _By Selendra Team_
 
 ## Abstract
