@@ -159,7 +159,7 @@ The Model Context Protocol provides a standardized mechanism for system componen
 
 ## KOOMPI Desktop Environment
 
-The KOOMPI Desktop Environment uses the Rust-based ICED toolkit for performance and responsiveness.
+The KOOMPI Desktop Environment uses the Rust-based Smithy wayland interface with plugins made in ICED toolkit for performance and responsiveness.
 
 ### Key Components
 
@@ -174,6 +174,12 @@ The KOOMPI Desktop Environment uses the Rust-based ICED toolkit for performance 
 - Adapts layouts based on current tasks
 - Preserves context between sessions
 - Modular design for customization
+
+### Considerations
+
+- Reinventing the wheel better difficult
+- Might be better to instead modify existing wayland compositors / add plugins
+- Large maintenance burden
 
 ## KOOMPI Assistant
 
@@ -221,6 +227,7 @@ KOOMPI OS includes a command-line interface that wraps Arch Linux's package mana
 ```
 koompi <operation> [options] [targets]
 ```
+ <!-- consider: koompi <command (natural language)>? -->
 
 1. **Package Management**:
 
@@ -248,7 +255,7 @@ koompi <operation> [options] [targets]
 ### Implementation
 
 - Rust-based wrapper around pacman and paru
-- Transaction safety with rollback capability
+- Transaction safety with rollback capability <!-- possible on archlinux? -->
 - Integration with MCP for context awareness
 
 ## KOOMPI Terminal
@@ -260,7 +267,7 @@ An advanced terminal emulator with intelligent features.
 1. **Interface**:
 
    - Tab and split-pane management
-   - GPU-accelerated rendering
+   - GPU-accelerated rendering  <!-- why? -->
    - Consistent theming with DE
 
 2. **Functionality**:
@@ -273,7 +280,7 @@ An advanced terminal emulator with intelligent features.
 3. **Development Tools**:
    - Git integration
    - Syntax highlighting
-   - Code execution
+   - Code execution  <!-- what does this entail? the terminals job, typically speaking, is to run a shell. inside that shell, one can do whatever one pleases, but usually the terminal itself doesnt execute code? -->
    - Performance analysis
 
 ### Technical Details
@@ -338,13 +345,15 @@ A productivity suite with Microsoft Office format compatibility.
 ### Technical Implementation
 
 - Based on LibreOffice with enhanced compatibility
-- ICED-based interface for consistency with DE
+- ICED-based interface for consistency with DE  <!-- LibreOffice is not based on ICED. -->
 - MCP integration for context-aware assistance
 
 ## Hardware Requirements
 
 KOOMPI OS scales across different hardware configurations:
 
+
+<!-- can we even load KOOMPI OS onto a 32gb SSD? -!-->
 | Configuration   | CPU                       | RAM   | Storage    | GPU                      | Use Case                 |
 | --------------- | ------------------------- | ----- | ---------- | ------------------------ | ------------------------ |
 | **Minimum**     | Dual-core x86_64, 2.0GHz  | 4GB   | 32GB SSD   | Integrated               | Basic productivity       |
@@ -353,11 +362,11 @@ KOOMPI OS scales across different hardware configurations:
 
 ### Performance Features
 
-- Dynamic model loading (only when needed)
+- Lazy model loading
 - Tiered model approach for resource efficiency
-- Hardware acceleration support (AVX, CUDA, ROCm, NPUs)
+- Hardware acceleration support (AVX, CUDA, ROCm, NPUs) <!-- CUDA / ROCm require a dedicated GPU which is not specified in the recommended performance tier, and NPU is not mentioned -!-->
 - Base memory usage: ~1.2GB RAM
-- Local model response times: 50-500ms
+- Local model response times: 50-500ms <!-- difficult to attain even on high-end hardware with mid-tier models -!-->
 
 ## Competitive Analysis
 
@@ -391,7 +400,7 @@ KOOMPI OS prioritizes local processing and user data control:
 
 ### Data Architecture
 
-- User data stored locally with encryption
+- User data stored locally with encryption  <!-- consider defaulting to LUKS for entire filesystem? -->
 - Context history maintained on device with retention policies
 - Tiered model approach with local models for common tasks
 - Optional cloud processing with explicit consent
