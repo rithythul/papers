@@ -2,10 +2,6 @@
 
 ## Introduction
 
-# Selendra Neural Network (SNN) Technical Whitepaper
-
-## Introduction
-
 This document presents the Selendra Neural Network (SNN), a next-generation blockchain platform designed to address the fundamental limitations of existing distributed ledger technologies. SNN introduces a novel architecture inspired by neural networks to solve the blockchain trilemma of scalability, security, and decentralization simultaneously.
 
 The SNN platform is built on three core technical innovations:
@@ -250,10 +246,47 @@ This section focuses on how the implementation choices for the Synaptic Ledger (
   - Extensive benchmarking of node software under high load.
   - Simulation of DAG growth and health under various transaction patterns and network conditions.
   - Developing adaptive gossip protocols that respond to network load.
-- **Comparison with Existing Implementations:**
-  - **Solana:** Achieves high TPS via PoH, pipelined processing, and a focus on optimized single-leader block production. SNN's DAG approach is leaderless, aiming for similar throughput via parallel TU processing and Avalanche.
-  - **Aptos/Sui:** Use parallel execution with optimistic concurrency control. SNN's DAG inherently allows parallel validation/consensus up to a point, with execution being the next step. The "account-synapse" has similarities to object-centric models in terms of enabling parallelization for non-contentious operations.
-  - **SNN Innovation:** The specific hybrid DAG model combined with Avalanche, aiming for a balance of high throughput, low latency, decentralization, and security without a single leader.
+
+### 1.2.0. Adaptive Resource Management for Sustained Throughput
+
+Sustaining the targeted high TPS requires not only optimized core components but also adaptive mechanisms to handle fluctuating network conditions and prevent resource exhaustion at individual validator nodes.
+
+- **Problem Statement/Opportunity for Improvement:**
+  While the DAG structure and Avalanche consensus offer high theoretical throughput, practical limitations arise from heterogeneous hardware capabilities of validators, varying network latency, and potential spam or denial-of-service (DoS) vectors targeting resource consumption. Without adaptive controls, nodes could become overwhelmed, leading to degraded performance or instability.
+
+- **Technical Solution & Implementation Considerations:**
+  Implement a multi-faceted adaptive resource management system within each validator node:
+
+  1. **Dynamic TU Processing Limits:**
+     - **Mechanism:** Each validator continuously monitors its own health metrics (e.g., CPU load, memory usage, I/O wait times, DAG processing queue depth). Based on predefined thresholds and a moving average of these metrics, it dynamically adjusts the rate at which it creates new TUs and processes TUs received from peers.
+     - **Parameters:** Configurable upper/lower bounds for TU processing rates, sensitivity of adjustment to metric changes.
+  2. **P2P Layer Congestion Control:**
+     - **Mechanism:** Implement congestion control algorithms (e.g., inspired by TCP Vegas or BBR for bandwidth estimation, or CoDel/PIE for queue management) for incoming and outgoing TU gossip. Nodes can signal congestion to peers, prompting them to reduce their sending rate to that specific node.
+     - **Implementation:** libp2p's connection and stream management can be extended with custom protocols for congestion signaling and rate limiting.
+  3. **Mempool Backpressure & Prioritization:**
+     - **Mechanism:** If a node's local mempool grows beyond certain thresholds (size in bytes or transaction count), or if downstream processing (TU creation, consensus) is lagging, the node should apply backpressure. This can involve:
+       - Increasing minimum fee requirements for new transactions to be accepted into the mempool.
+       - Preferentially dropping older or lower-fee transactions from the mempool.
+       - Temporarily stopping acceptance of new transactions from RPC or peer gossip if severely overloaded.
+     - **Data Structures:** Tiered mempool based on fee rates and arrival time, with clear eviction policies.
+  4. **Adaptive Avalanche Parameters (Advanced):**
+     - **Mechanism:** While core Avalanche parameters (`k`, `alpha`, `beta`) are critical for security and typically set globally, nodes could subtly adapt their query pacing or concurrent query limits based on observed network responsiveness and local load. This requires careful research to avoid impacting consensus safety.
+     - **Research Need:** Simulate impact of localized Avalanche query behavior adjustments.
+
+- **Expected Benefit:**
+
+  - **Improved Network Stability:** Prevents cascading failures due to overloaded nodes.
+  - **Enhanced Resilience:** Better handling of spam attacks or sudden bursts in transaction volume.
+  - **More Consistent Performance:** Smoother operation across varying network conditions and hardware.
+  - **Fairness:** Prevents well-resourced nodes from overwhelming less capable ones.
+
+- **Potential Trade-offs or Risks:**
+  - **Increased Complexity:** Node software becomes more complex to design, implement, and test.
+  - **Parameter Tuning:** Finding optimal thresholds and responsiveness for adaptive mechanisms can be challenging and may require ongoing adjustment.
+  - **Localized Performance Variation:** Aggressive adaptation might lead to slight, temporary increases in transaction confirmation latency for users connected to a heavily loaded node, though overall network health improves.
+  - **Potential for Oscillations:** Poorly tuned feedback loops could lead to oscillations in processing rates.
+
+This adaptive resource management layer is crucial for translating the theoretical scalability of the Synaptic Ledger into sustained, real-world high throughput.
 
 ### 1.2.1 Engineering for 100,000+ TPS
 
