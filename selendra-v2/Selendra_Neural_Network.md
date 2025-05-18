@@ -2,7 +2,25 @@
 
 ## Introduction
 
-This document provides a detailed technical blueprint for the implementation of the Selendra Neural Network (SNN), translating its conceptual design into actionable engineering specifications. It addresses key aspects of implementability, including algorithms, data structures, protocols, cryptographic primitives, component breakdown, challenges, security, parameterization, integration, research needs, and comparisons with existing systems for each major component of the SNN. The SNN aims to deliver a highly scalable, interoperable, user-friendly, and developer-centric blockchain platform by leveraging a novel hybrid DAG-based consensus mechanism, dynamic sharding, native account abstraction, and a robust economic model.
+# Selendra Neural Network (SNN) Technical Whitepaper
+
+## Introduction
+
+This document presents the Selendra Neural Network (SNN), a next-generation blockchain platform designed to address the fundamental limitations of existing distributed ledger technologies. SNN introduces a novel architecture inspired by neural networks to solve the blockchain trilemma of scalability, security, and decentralization simultaneously.
+
+The SNN platform is built on three core technical innovations:
+
+1. **Synaptic Ledger**: A hybrid Proof-of-Stake Directed Acyclic Graph (DAG) that combines elements from Avalanche consensus, Tangle, and Block-Lattice architectures. This structure enables parallel transaction processing, high throughput, and low latency while maintaining strong Byzantine fault tolerance.
+
+2. **Dynamic Synaptic Clusters (DSCs)**: An adaptive sharding mechanism that responds to network demand, enabling horizontal scaling without compromising cross-shard composability. DSCs communicate through a cryptographically secure protocol anchored in the main ledger.
+
+3. **Native Account Abstraction**: Protocol-level smart contract accounts that dramatically improve user experience through features like social recovery, multi-signature control, fee delegation, and session keys.
+
+SNN achieves these goals through a comprehensive technical framework incorporating advanced cryptographic primitives, efficient state management systems, and MEV resistance mechanisms. This whitepaper provides the detailed specifications for implementing each component, including algorithms, data structures, protocols, security considerations, and comparative analyses with existing systems.
+
+The proposed design delivers exceptional performance metrics (targeted 100,000+ TPS with 1-2 second finality) while creating a developer-friendly ecosystem with WebAssembly smart contracts, multi-language support, and robust economic incentives through the NEURON token.
+
+Addressing the key technical challenges facing blockchain adoption today, SNN enables a new generation of decentralized applications that can scale to global usage while maintaining the security and decentralization properties that form the foundation of blockchain technology.
 
 ---
 
