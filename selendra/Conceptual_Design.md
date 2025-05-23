@@ -1,4 +1,4 @@
-# Neural-Network-Protocol (NNP): Conceptual Design Document
+# Conceptual Design Document
 
 **Vision:** To create a next-generation Distributed Ledger Technology (DLT) that offers massive scalability (100,000+ TPS, sub-second finality), unparalleled user-friendliness, and a highly productive developer ecosystem, learning from and transcending the limitations of current blockchain and DAG-based systems. NNP will feature seamless interoperability with established networks like Ethereum and Bitcoin.
 
